@@ -1,5 +1,6 @@
 <?php
 
+include "layouts/header.php";
 include 'config/database.php';
 
 $employeeId = $_POST['employee_id'];
@@ -9,5 +10,8 @@ $record = mysqli_fetch_assoc($getEmployee);
 if (file_exists("images/".$record['photo'])) {
     $delete = mysqli_query($connection, "DELETE FROM employee WHERE id='$employeeId'");
     unlink("images/".$record['photo']);
-    header('location:index.php');
+} else {
+    $delete = "error";
 }
+
+include "layouts/footer.php";

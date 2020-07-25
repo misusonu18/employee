@@ -2,7 +2,6 @@
 
 include "layouts/header.php";
 include "config/database.php";
-
 ?>
 
 <div class="container">
