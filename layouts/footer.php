@@ -8,7 +8,7 @@
                 <script src="js/scripts.js"></script>
 
                 <?php
-                    if (isset($insert)) {
+                    if ($insert === true) {
                         echo "
                             <script type='text/javascript'>
                                 alertify.notify('Insert Successfully', 'success', 2, function(){
@@ -18,7 +18,7 @@
                         ";
                     }
 
-                    if (isset($update)) {
+                    if ($update === true) {
                         echo "
                             <script type='text/javascript'>
                                 alertify.notify('Update Successfully', 'success', 2, function(){
@@ -28,10 +28,20 @@
                         ";
                     }
 
-                    if (isset($delete)) {
+                    if ($delete === true) {
                         echo "
                             <script type='text/javascript'>
                                 alertify.notify('Delete Successfully', 'success', 2, function(){
+                                    window.location.href='index.php';
+                                });
+                            </script>
+                        ";
+                    }
+
+                    if ($insert === "notSuccess" || $update === "notSuccess" || $delete === "notSuccess") {
+                        echo "
+                            <script type='text/javascript'>
+                                alertify.notify('Something Went Wrong', 'error', 2, function(){
                                     window.location.href='index.php';
                                 });
                             </script>

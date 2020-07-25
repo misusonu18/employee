@@ -7,17 +7,15 @@ if (isset($_POST['add_employee'])) {
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];
     $email = $_POST['email'];
-    $phone = $_POST['phone_number'];
     $address = $_POST['address'];
 
-    $file_name = date('dmYHis').str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
-    move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$file_name);
-    $insertEmployee = "INSERT INTO employee (id,first_name,last_name,email,address,photo) VALUES(0,'$firstName', '$lastName', '$email', '$address', '$file_name')";
-    if (!$result = mysqli_query($connection, $insertEmployee)) {
-        mysqli_error($connection);
-        echo "SomeThing Wrong";
+    if ($fileName && $lastName && $email && $address) {
+        $fileName = date('dmYHis').str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
+        move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$fileName);
+        $insertEmployee = "INSERT INTO employee (first_name,last_name,email,address,photo) VALUES('$firstName', '$lastName', '$email', '$address', '$fileName')";
+        $insert = mysqli_query($connection, $insertEmployee);
     } else {
-        header('location:index.php');
+        $insert = "notSuccess";
     }
 }
 ?>
@@ -29,7 +27,7 @@ if (isset($_POST['add_employee'])) {
     <div class="row">
         <div class="col">
             <div class="card mt-5 border-0">
-                <form action="add_employee.php" method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>First Name</label>
                         <div class="input-group">
@@ -84,14 +82,12 @@ if (isset($_POST['add_employee'])) {
                         </div>
                     </div>
 
-                    <div class="custom-file">
+                    <div class="form-group">
                         <input type="file"
-                            class="custom-file-input"
                             name="employee_image"
                             id="employee-photo"
                             required
                         >
-                        <label class="custom-file-label" for="employee-photo">Choose Photo</label>
                     </div>
 
                     <div class="form-group">

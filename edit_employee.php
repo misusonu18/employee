@@ -10,28 +10,30 @@ if (isset($_GET['employee_id'])) {
 }
 
 if (isset($_POST['edit_employee'])) {
-    $id = $_POST['employee_id'];
+    $id = $_GET['employee_id'];
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];
     $email = $_POST['email'];
     $address = $_POST['address'];
     $image = $_POST['image'];
 
-    if (!empty($_FILES['employee_image']['name'])) {
-        if (file_exists("images/".$image)) {
-            $file_path = date('dmYHis').str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
-            move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$file_path);
-            $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'",photo="'.$file_path.'" where id="'.$id.'"';
-            $update = mysqli_query($connection, $updateQuery);
-            unlink("images/".$image);
-            header('location:index.php');
+    if ($fileName && $lastName && $email && $address) {
+        if (!empty($_FILES['employee_image']['name'])) {
+            if (file_exists("images/".$image)) {
+                unlink("images/".$image);
+                $fileName = date('dmYHis').str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
+                move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$fileName);
+                $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'",photo="'.$fileName.'" where id="'.$id.'"';
+                $update = mysqli_query($connection, $updateQuery);
+            }
+        } else {
+            if (file_exists("images/".$image)) {
+                $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'" where id="'.$id.'"';
+                $update = mysqli_query($connection, $updateQuery);
+            }
         }
     } else {
-        if (file_exists("images/".$image)) {
-            $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'" where id="'.$id.'"';
-            $update = mysqli_query($connection, $updateQuery);
-            header('location:index.php');
-        }
+        $update = "notSuccess";
     }
 }
 
@@ -44,7 +46,7 @@ if (isset($_POST['edit_employee'])) {
     </ol>
     <div class="row">
         <div class="col">
-            <form action="edit_employee.php" method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>First Name</label>
                     <div class="input-group">
@@ -110,10 +112,6 @@ if (isset($_POST['edit_employee'])) {
                     <div>
                         <img src="<?php echo "images/".$record['photo']?>" alt="Employee photo" style='width:100px'>
                     </div>
-                </div>
-
-                <div class="input-group">
-                    <input type="hidden" name="employee_id" value="<?php echo $record['id'] ?>">
                 </div>
 
                 <div class="form-group">
