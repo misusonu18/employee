@@ -15,3 +15,21 @@ if (file_exists("images/".$record['photo'])) {
 }
 
 include "layouts/footer.php";
+
+    if (isset($delete)) {
+        echo "
+            <script type='text/javascript'>
+                alertify.notify('Delete Successfully', 'success', 1, function(){
+                    window.location.href='index.php';
+                });
+            </script>
+        ";
+    } else {
+        echo "
+            <script type='text/javascript'>
+                alertify.notify('Something Went Wrong', 'error', 1, function(){
+                    window.location.href='index.php';
+                });
+            </script>
+        ";
+    }
