@@ -38,7 +38,7 @@
                         ";
                     }
 
-                    if ($insert === "notSuccess" || $update === "notSuccess" || $delete === "notSuccess") {
+                    if ($insert === "error" || $update === "error" || $delete === "error") {
                         echo "
                             <script type='text/javascript'>
                                 alertify.notify('Something Went Wrong', 'error', 2, function(){

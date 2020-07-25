@@ -15,7 +15,7 @@ if (isset($_POST['add_employee'])) {
         $insertEmployee = "INSERT INTO employee (first_name,last_name,email,address,photo) VALUES('$firstName', '$lastName', '$email', '$address', '$fileName')";
         $insert = mysqli_query($connection, $insertEmployee);
     } else {
-        $insert = "notSuccess";
+        $insert = "error";
     }
 }
 ?>

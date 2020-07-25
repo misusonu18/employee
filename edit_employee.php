@@ -33,7 +33,7 @@ if (isset($_POST['edit_employee'])) {
             }
         }
     } else {
-        $update = "notSuccess";
+        $update = "error";
     }
 }
 

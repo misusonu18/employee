@@ -11,7 +11,7 @@ if (file_exists("images/".$record['photo'])) {
     $delete = mysqli_query($connection, "DELETE FROM employee WHERE id='$employeeId'");
     unlink("images/".$record['photo']);
 } else {
-    $delete = "notSuccess";
+    $delete = "error";
 }
 
 include "layouts/footer.php";
