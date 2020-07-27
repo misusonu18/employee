@@ -32,22 +32,24 @@ include "config/database.php";
                 <td><?php echo $result['address'] ?></td>
                 <td><img src='<?php echo "images/" . $result['photo'] ?>' style='width:100px'> </td>
                 <td>
-                    <a href="edit_employee.php?employee_id=<?php echo $result['id']?>" class="btn btn-sm btn-info">
-                        <i class="fa fa-edit"></i>
-                    </a>
+                    <div class="d-flex justify-content-around">
+                        <a href="edit_employee.php?employee_id=<?php echo $result['id']?>" class="btn btn-sm btn-info">
+                            <i class="fa fa-edit"></i>
+                        </a>
 
-                    <form action="delete_employee.php"
-                        onsubmit="return confirm('Do you really want to delete the Employee?');"
-                        method="POST"
-                    >
-                        <button
-                            value="<?php echo $result['id'] ?>"
-                            name="employee_id"
-                            class="btn btn-danger btn-sm"
+                        <form action="delete_employee.php"
+                            onsubmit="return confirm('Do you really want to delete the Employee?');"
+                            method="POST"
                         >
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </form>
+                            <button
+                                value="<?php echo $result['id'] ?>"
+                                name="employee_id"
+                                class="btn btn-danger btn-sm"
+                            >
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             <?php
