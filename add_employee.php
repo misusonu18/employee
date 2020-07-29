@@ -5,7 +5,6 @@ include 'config/database.php';
 session_start();
 
 if (isset($_POST['add_employee'])) {
-    print_r($_POST['employee_image']);
     if (empty($_POST['first_name']) || empty($_POST['last_name']) || empty($_POST['email']) || empty($_POST['address']) || empty($_FILES['employee_image']['name'])) {
         if (empty($_POST['first_name'])) {
             $_SESSION['ErrorMessage']['first_name'] = "<font style='color:red;' font-size:16px;>First Name Required</font>";
