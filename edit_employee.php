@@ -1,7 +1,7 @@
 <?php
-
 include 'layouts/header.php';
 include 'config/database.php';
+session_start();
 
 if (isset($_GET['employee_id'])) {
     $id = $_GET['employee_id'];
@@ -35,10 +35,10 @@ if (isset($_POST['edit_employee'])) {
         $image = $_POST['image'];
 
         if (!empty($_FILES['employee_image']['name'])) {
-            if (file_exists("images/".$image)) {
+            if (file_exists("images/".$image) == $image) {
                 unlink("images/".$image);
 
-                $fileName = rand(" ", "", basename($_FILES["employee_image"]["name"]));
+                $fileName = rand(1, 99999).str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
                 move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$fileName);
 
                 $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'",photo="'.$fileName.'" where id="'.$id.'"';
@@ -47,6 +47,8 @@ if (isset($_POST['edit_employee'])) {
                 } else {
                     $update = "error";
                 }
+            } else {
+                $update = "error";
             }
         } else {
             $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'" where id="'.$id.'"';
@@ -64,62 +66,74 @@ if (isset($_POST['edit_employee'])) {
     <div class="col">
         <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label>First Name</label>
+                <label class="text-dark">First Name</label>
                 <div class="input-group">
                     <input type="text"
                         name="first_name"
-                        id="first-name"
                         class="form-control"
                         placeholder="First Name"
                         value="<?php echo $record['first_name'] ?>"
                         required
                     >
                 </div>
+                <?php
+                    echo isset($_SESSION['ErrorMessage']['first_name']) ? $_SESSION['ErrorMessage']['first_name'] : "";
+                    unset($_SESSION['ErrorMessage']['first_name']);
+                ?>
             </div>
 
             <div class="form-group">
-                <label>Last Name</label>
+                <label class="text-dark">Last Name</label>
                 <div class="input-group">
                     <input type="text"
                         name="last_name"
-                        id="last-name"
                         class="form-control"
                         placeholder="Last Name"
                         value="<?php echo $record['last_name'] ?>"
                         required
                     >
                 </div>
+                 <?php
+                    echo isset($_SESSION['ErrorMessage']['last_name']) ? $_SESSION['ErrorMessage']['last_name'] : "";
+                    unset($_SESSION['ErrorMessage']['last_name']);
+                ?>
             </div>
 
             <div class="form-group">
-                <label>Email</label>
+                <label class="text-dark">Email</label>
                 <div class="input-group">
                     <input type="email"
-                    name="email"
-                    id="email"
-                    class="form-control"
-                    placeholder="Email"
-                    value="<?php echo $record['email'] ?>"
-                    required
+                        name="email"
+                        class="form-control"
+                        placeholder="Email"
+                        value="<?php echo $record['email'] ?>"
+                        required
                 >
                 </div>
+                 <?php
+                    echo isset($_SESSION['ErrorMessage']['email']) ? $_SESSION['ErrorMessage']['email'] : "";
+                    unset($_SESSION['ErrorMessage']['email']);
+                ?>
             </div>
 
             <div class="form-group">
-                <label>Address</label>
+                <label class="text-dark">Address</label>
                 <div class="input-group">
                     <input type="text"
                         name="address"
-                        id="address"
                         class="form-control"
                         placeholder="Address"
                         value="<?php echo $record['address'] ?>"
                         required
                     >
                 </div>
+                <?php
+                    echo isset($_SESSION['ErrorMessage']['address']) ? $_SESSION['ErrorMessage']['address'] : "";
+                    unset($_SESSION['ErrorMessage']['address']);
+                ?>
             </div>
 
-            <div class="row col justify-content-between">
+            <div class="row col justify-content-left">
                 <div class="form-group">
                     <input type="file" name="employee_image">
                     <input type="hidden" name="image" value="<?php echo $record['photo'] ?>">
@@ -130,15 +144,20 @@ if (isset($_POST['edit_employee'])) {
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="submit"
-                        name="edit_employee"
-                        id="edit-employee"
-                        class="btn btn-warning"
-                    >
+            <div class="row justify-content-left">
+                <div class="form-group mr-3">
+                    <div class="input-group">
+                        <input type="submit" name="edit_employee" class="btn btn-warning" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <a href="index.php" class="btn btn-info">Cancel</a>
+                    </div>
                 </div>
             </div>
+
         </form>
     </div>
 </div>
@@ -146,20 +165,20 @@ if (isset($_POST['edit_employee'])) {
 
 include 'layouts/footer.php';
 
-    if (isset($update) && $update === "success") {
-        echo "
-            <script type='text/javascript'>
-                alertify.notify('Update Successfully', 'success', 1, function(){
-                    window.location.href='index.php';
-                });
-            </script>
-        ";
-    } elseif (isset($update) && $update === "error") {
-        echo "
-            <script type='text/javascript'>
-                alertify.notify('Something Went Wrong', 'error', 1, function(){
-                    window.location.href='index.php';
-                });
-            </script>
-        ";
-    }
+if (isset($update) && $update === "success") {
+    echo "
+        <script type='text/javascript'>
+            alertify.notify('Update Successfully', 'success', 1, function(){
+                window.location.href='index.php';
+            });
+        </script>
+    ";
+} elseif (isset($update) && $update === "error") {
+    echo "
+        <script type='text/javascript'>
+            alertify.notify('Something Went Wrong', 'error', 1, function(){
+                window.location.href='index.php';
+            });
+        </script>
+    ";
+}
