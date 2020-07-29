@@ -1,16 +1,29 @@
 <?php
-
 include "layouts/header.php";
 include "config/database.php";
+
+if (isset($_POST['delete_employee_id'])) {
+    $employeeId = $_POST['delete_employee_id'];
+    $getEmployee = mysqli_query($connection, 'SELECT * FROM employee WHERE id = "'.$employeeId.'"');
+    $record = mysqli_fetch_assoc($getEmployee);
+
+    if (file_exists("images/".$record['photo']) == $record['photo']) {
+        $delete = mysqli_query($connection, "DELETE FROM employee WHERE id='$employeeId'");
+        unlink("images/".$record['photo']);
+        $delete = "success";
+    } else {
+        $delete = "error";
+    }
+}
 ?>
 <div class="text-right mb-2 pr-4">
-    <a href="add_employee.php" class="btn btn-sm btn-primary">
+    <a href="add_employee.php" class="btn btn-sm btn-primary" title="Add Employee">
         <i class="fa fa-user-plus"></i>
     </a>
 </div>
 <div class="table-responsive pr-4 pl-4">
-    <table class="table table-bordered" id="employee-table" width="100%" cellspacing="0">
-        <thead>
+    <table class="table table-bordered" width="100%" cellspacing="0">
+        <thead class="thead-dark">
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -33,19 +46,13 @@ include "config/database.php";
                 <td><img src='<?php echo "images/" . $result['photo'] ?>' style='width:100px'> </td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        <a href="edit_employee.php?employee_id=<?php echo $result['id']?>" class="btn btn-sm btn-info">
+                        <a href="edit_employee.php?employee_id=<?php echo $result['id']?>" title="Edit Employee" class="btn btn-sm btn-info">
                             <i class="fa fa-edit"></i>
                         </a>
 
-                        <form action="delete_employee.php"
-                            onsubmit="return confirm('Do you really want to delete the Employee?');"
-                            method="POST"
-                        >
-                            <button
-                                value="<?php echo $result['id'] ?>"
-                                name="employee_id"
-                                class="btn btn-danger btn-sm"
-                            >
+                        <form action="" id="delete-employee-form" onclick="confirmation()" method="post">
+                            <input type="hidden" name="delete_employee_id" value="<?php echo $result['id']; ?>">
+                            <button type="button" title="Delete Employee" class="btn btn-danger btn-sm" >
                                 <i class="fa fa-trash"></i>
                             </button>
                         </form>
@@ -59,5 +66,22 @@ include "config/database.php";
     </table>
 </div>
 <?php
-
 include "layouts/footer.php";
+
+if (isset($delete) && $delete === "success") {
+    echo "
+            <script type='text/javascript'>
+                alertify.notify('Delete Successfully', 'success', 1, function(){
+                    window.location.href='index.php';
+                });
+            </script>
+        ";
+} elseif (isset($delete) && $delete === "error") {
+    echo "
+            <script type='text/javascript'>
+                alertify.notify('Something Went Wrong', 'error', 1, function(){
+                    window.location.href='index.php';
+                });
+            </script>
+        ";
+}
