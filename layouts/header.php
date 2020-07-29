@@ -36,7 +36,7 @@
 			<li class="nav-item active">
 				<a class="nav-link" href="index.php">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Employees</span></a>
+					<span>Employee's</span></a>
 			</li>
 
 			<hr class="sidebar-divider d-none d-md-block">
@@ -80,11 +80,3 @@
 						</li>
 					</ul>
 				</nav>
-
-				<div class="container-fluid">
-
-					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Employee</h1>
-					</div>
-
-				</div>
