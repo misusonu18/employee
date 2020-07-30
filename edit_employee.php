@@ -76,6 +76,7 @@ if (isset($_POST['edit_employee'])) {
                         required
                     >
                 </div>
+
                 <?php
                     echo isset($_SESSION['ErrorMessage']['first_name']) ? $_SESSION['ErrorMessage']['first_name'] : "";
                     unset($_SESSION['ErrorMessage']['first_name']);
@@ -93,7 +94,8 @@ if (isset($_POST['edit_employee'])) {
                         required
                     >
                 </div>
-                 <?php
+
+                <?php
                     echo isset($_SESSION['ErrorMessage']['last_name']) ? $_SESSION['ErrorMessage']['last_name'] : "";
                     unset($_SESSION['ErrorMessage']['last_name']);
                 ?>
@@ -110,7 +112,8 @@ if (isset($_POST['edit_employee'])) {
                         required
                 >
                 </div>
-                 <?php
+
+                <?php
                     echo isset($_SESSION['ErrorMessage']['email']) ? $_SESSION['ErrorMessage']['email'] : "";
                     unset($_SESSION['ErrorMessage']['email']);
                 ?>
@@ -127,6 +130,7 @@ if (isset($_POST['edit_employee'])) {
                         required
                     >
                 </div>
+
                 <?php
                     echo isset($_SESSION['ErrorMessage']['address']) ? $_SESSION['ErrorMessage']['address'] : "";
                     unset($_SESSION['ErrorMessage']['address']);
@@ -147,17 +151,16 @@ if (isset($_POST['edit_employee'])) {
             <div class="row justify-content-left">
                 <div class="form-group mr-3">
                     <div class="input-group">
-                        <input type="submit" name="edit_employee" class="btn btn-warning" >
+                        <input type="submit" name="edit_employee" class="btn btn-primary" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-group">
-                        <a href="index.php" class="btn btn-info">Cancel</a>
+                        <a href="index.php" class="btn btn-secondary">Cancel</a>
                     </div>
                 </div>
             </div>
-
         </form>
     </div>
 </div>

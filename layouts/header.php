@@ -36,7 +36,8 @@
 			<li class="nav-item active">
 				<a class="nav-link" href="index.php">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Employee's</span></a>
+					<span>Employee's</span>
+				</a>
 			</li>
 
 			<hr class="sidebar-divider d-none d-md-block">

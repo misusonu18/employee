@@ -21,6 +21,7 @@ if (isset($_POST['delete_employee_id'])) {
         <i class="fa fa-user-plus"></i>
     </a>
 </div>
+
 <div class="table-responsive pr-4 pl-4">
     <table class="table table-bordered" width="100%" cellspacing="0">
         <thead class="thead-dark">
@@ -39,14 +40,17 @@ if (isset($_POST['delete_employee_id'])) {
                 foreach ($results as $result) {
                     ?>
             <tr>
-                <td><?php echo $result['first_name'] ?></td>
-                <td><?php echo $result['last_name'] ?></td>
-                <td><?php echo $result['email'] ?></td>
-                <td><?php echo $result['address'] ?></td>
-                <td><img src='<?php echo "images/" . $result['photo'] ?>' style='width:100px'> </td>
+                <td><?php echo $result['first_name']; ?></td>
+                <td><?php echo $result['last_name']; ?></td>
+                <td><?php echo $result['email']; ?></td>
+                <td><?php echo $result['address']; ?></td>
+                <td><img src='<?php echo "images/" . $result['photo']; ?>' style='width:100px'> </td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        <a href="edit_employee.php?employee_id=<?php echo $result['id']?>" title="Edit Employee" class="btn btn-sm btn-info">
+                        <a href="edit_employee.php?employee_id=<?php echo $result['id']?>"
+                            title="Edit Employee"
+                            class="btn btn-sm btn-warning"
+                        >
                             <i class="fa fa-edit"></i>
                         </a>
 
@@ -65,23 +69,41 @@ if (isset($_POST['delete_employee_id'])) {
         </tbody>
     </table>
 </div>
+
 <?php
 include "layouts/footer.php";
 
 if (isset($delete) && $delete === "success") {
     echo "
-            <script type='text/javascript'>
-                alertify.notify('Delete Successfully', 'success', 1, function(){
-                    window.location.href='index.php';
-                });
-            </script>
-        ";
+        <script type='text/javascript'>
+            alertify.notify('Delete Successfully', 'success', 1, function(){
+                window.location.href='index.php';
+            });
+        </script>
+    ";
 } elseif (isset($delete) && $delete === "error") {
     echo "
-            <script type='text/javascript'>
-                alertify.notify('Something Went Wrong', 'error', 1, function(){
-                    window.location.href='index.php';
-                });
-            </script>
-        ";
+        <script type='text/javascript'>
+            alertify.notify('Something Went Wrong', 'error', 1, function(){
+                window.location.href='index.php';
+            });
+        </script>
+    ";
 }
+?>
+
+<script>
+    function confirmation() {
+        alertify.confirm("Delete Employee", "Do You Really Want To Delete Employee?", function (e) {
+            event.preventDefault();
+            if (e) {
+                document.getElementById("delete-employee-form").submit();
+                return true;
+            } else {
+                return false;
+            }
+        },
+            function () {}
+        );
+    }
+</script>
