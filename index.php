@@ -34,6 +34,7 @@ if (isset($_POST['delete_employee_id'])) {
                 <th>Action</th>
             </tr>
         </thead>
+
         <tbody>
             <?php
                 $results = mysqli_query($connection, 'SELECT * FROM employee');
@@ -54,7 +55,7 @@ if (isset($_POST['delete_employee_id'])) {
                             <i class="fa fa-edit"></i>
                         </a>
 
-                        <form action="" id="delete-employee-form" onclick="confirmation()" method="post">
+                        <form id="delete-employee-form" onclick="confirmation()" method="post">
                             <input type="hidden" name="delete_employee_id" value="<?php echo $result['id']; ?>">
                             <button type="button" title="Delete Employee" class="btn btn-danger btn-sm" >
                                 <i class="fa fa-trash"></i>
