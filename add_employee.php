@@ -33,6 +33,7 @@ if (isset($_POST['add_employee'])) {
 
         $fileName = rand(1, 99999).str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
         move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$fileName);
+        
         $InsertEmployee = "INSERT INTO employee (first_name,last_name,email,address,photo) VALUES('$firstName', '$lastName', '$email', '$address', '$fileName')";
         if ($insert = mysqli_query($connection, $InsertEmployee)) {
             $insert = "success";
@@ -44,19 +45,14 @@ if (isset($_POST['add_employee'])) {
 ?>
 <div class="row pr-4 pl-4">
     <div class="col">
-        <div class="card mt-5 border-0">
+        <div class="card border-0">
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="text-dark">First Name</label>
                     <div class="input-group">
-                        <input
-                            type="text"
-                            name="first_name"
-                            class="form-control"
-                            placeholder="First Name"
-                            required
-                        >
+                        <input type="text" name="first_name" class="form-control" placeholder="First Name" required />
                     </div>
+
                     <?php
                         echo isset($_SESSION['ErrorMessage']['first_name']) ? $_SESSION['ErrorMessage']['first_name'] : "";
                         unset($_SESSION['ErrorMessage']['first_name']);
@@ -66,14 +62,9 @@ if (isset($_POST['add_employee'])) {
                 <div class="form-group">
                     <label class="text-dark">Last Name</label>
                     <div class="input-group">
-                        <input
-                            type="text"
-                            name="last_name"
-                            class="form-control"
-                            placeholder="Last Name"
-                            required
-                        >
+                        <input type="text" name="last_name" class="form-control" placeholder="Last Name" required />
                     </div>
+
                     <?php
                         echo isset($_SESSION['ErrorMessage']['last_name']) ? $_SESSION['ErrorMessage']['last_name'] : "";
                         unset($_SESSION['ErrorMessage']['last_name']);
@@ -83,14 +74,9 @@ if (isset($_POST['add_employee'])) {
                 <div class="form-group">
                     <label class="text-dark">Email</label>
                     <div class="input-group">
-                        <input
-                            type="email"
-                            name="email"
-                            class="form-control"
-                            placeholder="Email"
-                            required
-                        >
+                        <input type="email" name="email" class="form-control" placeholder="Email" required />
                     </div>
+
                     <?php
                         echo isset($_SESSION['ErrorMessage']['email']) ? $_SESSION['ErrorMessage']['email'] : "";
                         unset($_SESSION['ErrorMessage']['email']);
@@ -100,12 +86,9 @@ if (isset($_POST['add_employee'])) {
                 <div class="form-group">
                     <label class="text-dark">Address</label>
                     <div class="input-group">
-                        <textarea name="address"
-                            class="form-control"
-                            placeholder="Address"
-                            required
-                        ></textarea>
+                        <textarea name="address" class="form-control" placeholder="Address" required /></textarea>
                     </div>
+
                     <?php
                         echo isset($_SESSION['ErrorMessage']['address']) ? $_SESSION['ErrorMessage']['address'] : "";
                         unset($_SESSION['ErrorMessage']['address']);
@@ -114,11 +97,9 @@ if (isset($_POST['add_employee'])) {
 
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="file"
-                            name="employee_image"
-                            required
-                        >
+                        <input type="file" name="employee_image" required />
                     </div>
+
                     <?php
                         echo isset($_SESSION['ErrorMessage']['employee_image']) ? $_SESSION['ErrorMessage']['employee_image'] : "";
                         unset($_SESSION['ErrorMessage']['employee_image']);
@@ -134,7 +115,7 @@ if (isset($_POST['add_employee'])) {
 
                     <div class="form-group">
                         <div class="input-group">
-                            <a href="index.php" class="btn btn-info mt-3">Cancel</a>
+                            <a href="index.php" class="btn btn-secondary mt-3">Cancel</a>
                         </div>
                     </div>
                 </div>
