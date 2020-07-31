@@ -55,8 +55,8 @@ if (isset($_POST['delete_employee_id'])) {
                             <i class="fa fa-edit"></i>
                         </a>
 
-                        <form id="delete-employee-form" onclick="confirmation()" method="post">
-                            <input type="hidden" name="delete_employee_id" value="<?php echo $result['id']; ?>">
+                        <form id="delete-employee-form" onclick="confirmation(<?php echo $result['id'] ?>);" method="post">
+                            <input type="hidden" name="delete_employee_id" id="delete-employee-id">
                             <button type="button" title="Delete Employee" class="btn btn-danger btn-sm" >
                                 <i class="fa fa-trash"></i>
                             </button>
@@ -94,10 +94,11 @@ if (isset($delete) && $delete === "success") {
 ?>
 
 <script>
-    function confirmation() {
+    function confirmation(employeeId) {
         alertify.confirm("Delete Employee", "Do You Really Want To Delete Employee?", function (e) {
             event.preventDefault();
             if (e) {
+                document.getElementById('delete-employee-id').setAttribute('value', employeeId);
                 document.getElementById("delete-employee-form").submit();
                 return true;
             } else {
