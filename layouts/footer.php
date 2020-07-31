@@ -2,7 +2,7 @@
     <footer class="sticky-footer bg-white">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
-                <span>Freshbits</span>
+                <span class="text-dark">Freshbits</span>
             </div>
         </div>
     </footer>
