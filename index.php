@@ -45,7 +45,7 @@ if (isset($_POST['delete_employee_id'])) {
                 <td><?php echo $result['last_name']; ?></td>
                 <td><?php echo $result['email']; ?></td>
                 <td><?php echo $result['address']; ?></td>
-                <td><img src='<?php echo "images/" . $result['photo']; ?>' style='width:100px'> </td>
+                <td class="text-center"><img src='<?php echo "images/" . $result['photo']; ?>' style='width:100px'> </td>
                 <td>
                     <div class="d-flex justify-content-around">
                         <a href="edit_employee.php?employee_id=<?php echo $result['id']; ?>"
