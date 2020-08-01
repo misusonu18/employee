@@ -48,14 +48,14 @@ if (isset($_POST['delete_employee_id'])) {
                 <td><img src='<?php echo "images/" . $result['photo']; ?>' style='width:100px'> </td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        <a href="edit_employee.php?employee_id=<?php echo $result['id']?>"
+                        <a href="edit_employee.php?employee_id=<?php echo $result['id']; ?>"
                             title="Edit Employee"
                             class="btn btn-sm btn-warning"
                         >
                             <i class="fa fa-edit"></i>
                         </a>
 
-                        <form id="delete-employee-form" onclick="confirmation(<?php echo $result['id'] ?>);" method="post">
+                        <form id="delete-employee-form" onclick="confirmation(<?php echo $result['id']; ?>);" method="post">
                             <input type="hidden" name="delete_employee_id" id="delete-employee-id">
                             <button type="button" title="Delete Employee" class="btn btn-danger btn-sm" >
                                 <i class="fa fa-trash"></i>
