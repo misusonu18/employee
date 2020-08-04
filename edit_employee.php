@@ -35,18 +35,17 @@ if (isset($_POST['edit_employee'])) {
         $image = $_POST['image'];
 
         if (!empty($_FILES['employee_image']['name'])) {
+            $fileName = rand(1, 99999).str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
+            move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$fileName);
+
+            $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'",photo="'.$fileName.'" where id="'.$id.'"';
+            $updateQuery = mysqli_query($connection, $updateQuery);
             if (file_exists("images/".$image)) {
                 unlink("images/".$image);
+            }
 
-                $fileName = rand(1, 99999).str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
-                move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$fileName);
-
-                $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'",photo="'.$fileName.'" where id="'.$id.'"';
-                if (mysqli_query($connection, $updateQuery)) {
-                    $update = "success";
-                } else {
-                    $update = "error";
-                }
+            if ($updateQuery === true) {
+                $update = "success";
             } else {
                 $update = "error";
             }
