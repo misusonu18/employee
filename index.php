@@ -7,9 +7,12 @@ if (isset($_POST['delete_employee_id'])) {
     $getEmployee = mysqli_query($connection, 'SELECT * FROM employee WHERE id = "'.$employeeId.'"');
     $record = mysqli_fetch_assoc($getEmployee);
 
-    if (file_exists("images/".$record['photo']) == $record['photo']) {
-        $delete = mysqli_query($connection, "DELETE FROM employee WHERE id='$employeeId'");
+    $delete = mysqli_query($connection, "DELETE FROM employee WHERE id='$employeeId'");
+    if (file_exists("images/".$record['photo'])) {
         unlink("images/".$record['photo']);
+    }
+
+    if ($delete === true) {
         $delete = "success";
     } else {
         $delete = "error";

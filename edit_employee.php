@@ -35,7 +35,7 @@ if (isset($_POST['edit_employee'])) {
         $image = $_POST['image'];
 
         if (!empty($_FILES['employee_image']['name'])) {
-            if (file_exists("images/".$image) == $image) {
+            if (file_exists("images/".$image)) {
                 unlink("images/".$image);
 
                 $fileName = rand(1, 99999).str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
