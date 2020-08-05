@@ -8,6 +8,7 @@ if (isset($_POST['delete_employee_id'])) {
     $record = mysqli_fetch_assoc($getEmployee);
 
     $delete = mysqli_query($connection, "DELETE FROM employee WHERE id='$employeeId'");
+    
     if (file_exists("images/".$record['photo'])) {
         unlink("images/".$record['photo']);
     }

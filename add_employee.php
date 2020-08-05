@@ -5,7 +5,12 @@ include 'config/database.php';
 session_start();
 
 if (isset($_POST['add_employee'])) {
-    if (empty($_POST['first_name']) || empty($_POST['last_name']) || empty($_POST['email']) || empty($_POST['address']) || empty($_FILES['employee_image']['name'])) {
+    if (empty($_POST['first_name']) ||
+        empty($_POST['last_name']) ||
+        empty($_POST['email']) ||
+        empty($_POST['address']) ||
+        empty($_FILES['employee_image']['name'])
+        ) {
         if (empty($_POST['first_name'])) {
             $_SESSION['ErrorMessage']['first_name'] = "<font style='color:red;' font-size:16px;>First Name Required</font>";
         }
@@ -26,16 +31,18 @@ if (isset($_POST['add_employee'])) {
             $_SESSION['ErrorMessage']['employee_image'] = "<font style='color:red;' font-size:16px;>Image Required</font>";
         }
     } else {
-        $firstName = mysqli_real_escape_string($connection, $_POST['first_name']);
-        $lastName = mysqli_real_escape_string($connection, $_POST['last_name']);
-        $email = mysqli_real_escape_string($connection, $_POST['email']);
-        $address = mysqli_real_escape_string($connection, $_POST['address']);
+        $firstName = $_POST['first_name'];
+        $lastName = $_POST['last_name'];
+        $email = $_POST['email'];
+        $address = $_POST['address'];
 
         $fileName = rand(1, 99999).str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
         move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$fileName);
-        
-        $InsertEmployee = "INSERT INTO employee (first_name,last_name,email,address,photo) VALUES('$firstName', '$lastName', '$email', '$address', '$fileName')";
-        if ($insert = mysqli_query($connection, $InsertEmployee)) {
+
+        if ($insert = mysqli_query(
+            $connection,
+            "INSERT INTO employee (first_name,last_name,email,address,photo) VALUES('$firstName', '$lastName', '$email', '$address', '$fileName')"
+        )) {
             $insert = "success";
         } else {
             $insert = "error";

@@ -1,13 +1,12 @@
-</div>
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span class="text-dark">Freshbits</span>
-            </div>
-        </div>
-    </footer>
     </div>
-</div>
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span class="text-dark">Freshbits</span>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fa fa-angle-up"></i>

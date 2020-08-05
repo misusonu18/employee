@@ -28,21 +28,24 @@ if (isset($_POST['edit_employee'])) {
         }
     } else {
         $id = $_GET['employee_id'];
-        $firstName = mysqli_real_escape_string($connection, $_POST['first_name']);
-        $lastName = mysqli_real_escape_string($connection, $_POST['last_name']);
-        $email = mysqli_real_escape_string($connection, $_POST['email']);
-        $address = mysqli_real_escape_string($connection, $_POST['address']);
-        $image = $_POST['image'];
+        $firstName = $_POST['first_name'];
+        $lastName = $_POST['last_name'];
+        $email = $_POST['email'];
+        $address = $_POST['address'];
+        $image = $record['photo'];
 
-        if (!empty($_FILES['employee_image']['name'])) {
+        if ($_FILES['employee_image']['name'] != '') {
+            if (($_FILES['employee_image']['name'] != '') && file_exists('images/'.$image)) {
+                unlink('images/'.$image);
+            }
+
             $fileName = rand(1, 99999).str_replace(" ", "", basename($_FILES["employee_image"]["name"]));
             move_uploaded_file($_FILES["employee_image"]["tmp_name"], "images/".$fileName);
 
-            $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'",photo="'.$fileName.'" where id="'.$id.'"';
-            $updateQuery = mysqli_query($connection, $updateQuery);
-            if (file_exists("images/".$image)) {
-                unlink("images/".$image);
-            }
+            $updateQuery = mysqli_query(
+                $connection,
+                "update employee set first_name='$firstName', last_name='$lastName', email='$email', address='$address', photo='$fileName' where id='$id'"
+            );
 
             if ($updateQuery === true) {
                 $update = "success";
@@ -50,8 +53,10 @@ if (isset($_POST['edit_employee'])) {
                 $update = "error";
             }
         } else {
-            $updateQuery = 'update employee set first_name="'.$firstName.'", last_name="'.$lastName.'", email="'.$email.'", address="'.$address.'" where id="'.$id.'"';
-            if (mysqli_query($connection, $updateQuery)) {
+            if (mysqli_query(
+                $connection,
+                "update employee set first_name='$firstName', last_name='$lastName', email='$email', address='$address' where id='$id'"
+            )) {
                 $update = "success";
             } else {
                 $update = "error";
@@ -139,7 +144,6 @@ if (isset($_POST['edit_employee'])) {
             <div class="row col justify-content-left">
                 <div class="form-group">
                     <input type="file" name="employee_image">
-                    <input type="hidden" name="image" value="<?php echo $record['photo'] ?>">
                 </div>
 
                 <div>
