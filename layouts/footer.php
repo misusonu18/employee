@@ -1,53 +1,21 @@
-        </main>
-            </div>
+    </div>
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span class="text-dark">Freshbits</span>
                 </div>
-                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-                <script src="js/alertify.min.js"></script>
-                <script src="js/scripts.js"></script>
+            </div>
+        </footer>
+    </div>
 
-                <?php
-                    if ($insert === true) {
-                        echo "
-                            <script type='text/javascript'>
-                                alertify.notify('Insert Successfully', 'success', 2, function(){
-                                    window.location.href='index.php';
-                                });
-                            </script>
-                        ";
-                    }
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
 
-                    if ($update === true) {
-                        echo "
-                            <script type='text/javascript'>
-                                alertify.notify('Update Successfully', 'success', 2, function(){
-                                    window.location.href='index.php';
-                                });
-                            </script>
-                        ";
-                    }
-
-                    if ($delete === true) {
-                        echo "
-                            <script type='text/javascript'>
-                                alertify.notify('Delete Successfully', 'success', 2, function(){
-                                    window.location.href='index.php';
-                                });
-                            </script>
-                        ";
-                    }
-
-                    if ($insert === "error" || $update === "error" || $delete === "error") {
-                        echo "
-                            <script type='text/javascript'>
-                                alertify.notify('Something Went Wrong', 'error', 2, function(){
-                                    window.location.href='index.php';
-                                });
-                            </script>
-                        ";
-                    }
-
-                ?>
-    </body>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="js/alertify.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+</body>
 </html>
