@@ -1,6 +1,7 @@
 <?php
 include "layouts/header.php";
 include "config/database.php";
+session_start();
 
 if (isset($_POST['delete_employee_id'])) {
     $employeeId = $_POST['delete_employee_id'];
@@ -13,10 +14,14 @@ if (isset($_POST['delete_employee_id'])) {
         unlink("images/".$record['photo']);
     }
 
-    if ($delete === true) {
-        $delete = "success";
+    if ($delete == true) {
+        $_SESSION['ErrorMessage']['success'] = 'Employee Deleted Successfully';
+        session_write_close(); 
+        header('location:index.php');
     } else {
-        $delete = "error";
+        $_SESSION['ErrorMessage']['error'] = 'Something Went Wrong';
+        session_write_close(); 
+        header('location:index.php');
     }
 }
 ?>
@@ -43,7 +48,7 @@ if (isset($_POST['delete_employee_id'])) {
             <?php
                 $results = mysqli_query($connection, 'SELECT * FROM employee');
                 foreach ($results as $result) {
-                    ?>
+            ?>
             <tr>
                 <td><?php echo $result['first_name']; ?></td>
                 <td><?php echo $result['last_name']; ?></td>
@@ -69,6 +74,13 @@ if (isset($_POST['delete_employee_id'])) {
                 </td>
             </tr>
             <?php
+            }
+                if (mysqli_num_rows($results) <= 0) {
+                ?>
+                    <tr>
+                        <td colspan="6" class="text-center">No Records Found</tr>
+                    </tr>
+                <?php
                 }
             ?>
         </tbody>
@@ -78,20 +90,17 @@ if (isset($_POST['delete_employee_id'])) {
 <?php
 include "layouts/footer.php";
 
-if (isset($delete) && $delete === "success") {
+if (isset($_SESSION['ErrorMessage']['success'])) {
     echo "
         <script type='text/javascript'>
-            alertify.notify('Delete Successfully', 'success', 1, function(){
-                window.location.href='index.php';
-            });
+            alertify.success('".$_SESSION['ErrorMessage']['success']."');
         </script>
     ";
-} elseif (isset($delete) && $delete === "error") {
+    unset($_SESSION['ErrorMessage']['success']);
+} elseif (isset($_SESSION['ErrorMessage']['error'])) {
     echo "
         <script type='text/javascript'>
-            alertify.notify('Something Went Wrong', 'error', 1, function(){
-                window.location.href='index.php';
-            });
+            alertify.danger('".$_SESSION['ErrorMessage']['error']."');
         </script>
     ";
 }
