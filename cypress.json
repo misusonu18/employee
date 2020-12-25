@@ -1,0 +1,14 @@
+{
+  "baseUrl": "http://php-crud.local",
+  "viewportWidth": 1366,
+  "viewportHeight": 768,
+
+  "env": {
+      "db": {
+        "host": "localhost",
+		    "user": "root",
+		    "password": "",
+		    "database": "phpcrud"
+      }
+	}
+}
