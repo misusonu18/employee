@@ -83,6 +83,7 @@ if (isset($_POST['edit_employee'])) {
                             placeholder="First Name"
                             value="<?php echo $record['first_name'] ?>"
                             required
+                            data-cy="first-name"
                         >
                     </div>
 
@@ -103,6 +104,7 @@ if (isset($_POST['edit_employee'])) {
                             placeholder="Last Name"
                             value="<?php echo $record['last_name'] ?>"
                             required
+                            data-cy="last-name"
                         >
                     </div>
 
@@ -123,6 +125,7 @@ if (isset($_POST['edit_employee'])) {
                             placeholder="Email"
                             value="<?php echo $record['email'] ?>"
                             required
+                            data-cy="email"
                     >
                     </div>
 
@@ -143,6 +146,7 @@ if (isset($_POST['edit_employee'])) {
                             placeholder="Address"
                             value="<?php echo $record['address'] ?>"
                             required
+                            data-cy="address"
                         >
                     </div>
 
@@ -156,7 +160,7 @@ if (isset($_POST['edit_employee'])) {
 
                 <div class="row col justify-content-left">
                     <div class="form-group">
-                        <input type="file" name="employee_image">
+                        <input type="file" name="employee_image" data-cy="photo">
                     </div>
 
                     <div>
@@ -167,7 +171,7 @@ if (isset($_POST['edit_employee'])) {
                 <div class="row justify-content-left">
                     <div class="form-group mr-3">
                         <div class="input-group">
-                            <input type="submit" name="edit_employee" class="btn btn-primary" />
+                            <input type="submit" name="edit_employee" data-cy="update" class="btn btn-primary" />
                         </div>
                     </div>
 

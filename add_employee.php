@@ -59,7 +59,13 @@ if (isset($_POST['add_employee'])) {
                 <div class="form-group">
                     <label class="text-dark">First Name</label>
                     <div class="input-group">
-                        <input type="text" name="first_name" class="form-control" placeholder="First Name" required />
+                        <input type="text" 
+                            name="first_name" 
+                            class="form-control" 
+                            placeholder="First Name" 
+                            data-cy="first-name"
+                            required 
+                        />
                     </div>
 
                     <?php
@@ -73,7 +79,13 @@ if (isset($_POST['add_employee'])) {
                 <div class="form-group">
                     <label class="text-dark">Last Name</label>
                     <div class="input-group">
-                        <input type="text" name="last_name" class="form-control" placeholder="Last Name" required />
+                        <input type="text" 
+                            name="last_name" 
+                            class="form-control" 
+                            placeholder="Last Name" 
+                            required 
+                            data-cy="last-name"
+                        />
                     </div>
 
                     <?php
@@ -87,7 +99,13 @@ if (isset($_POST['add_employee'])) {
                 <div class="form-group">
                     <label class="text-dark">Email</label>
                     <div class="input-group">
-                        <input type="email" name="email" class="form-control" placeholder="Email" required />
+                        <input type="email" 
+                            name="email" 
+                            class="form-control" 
+                            placeholder="Email" 
+                            data-cy="email"
+                            required 
+                        />
                     </div>
 
                     <?php
@@ -101,7 +119,13 @@ if (isset($_POST['add_employee'])) {
                 <div class="form-group">
                     <label class="text-dark">Address</label>
                     <div class="input-group">
-                        <textarea name="address" class="form-control" placeholder="Address" required /></textarea>
+                        <textarea name="address" 
+                            class="form-control" 
+                            placeholder="Address" 
+                            data-cy="address"
+                            required 
+                        />
+                        </textarea>
                     </div>
 
                     <?php
@@ -114,7 +138,11 @@ if (isset($_POST['add_employee'])) {
 
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="file" name="employee_image" required />
+                        <input type="file" 
+                            name="employee_image" 
+                            data-cy="photo"
+                            required   
+                        />
                     </div>
 
                     <?php
@@ -128,7 +156,7 @@ if (isset($_POST['add_employee'])) {
                 <div class="row justify-content-left">
                     <div class="form-group mr-3">
                         <div class="input-group">
-                            <input type="submit" name="add_employee" class="btn btn-primary mt-3" >
+                            <input type="submit" data-cy="submit" name="add_employee" class="btn btn-primary mt-3" >
                         </div>
                     </div>
 
